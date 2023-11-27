@@ -17,4 +17,5 @@ rl.question("Enter the elements of the array separated by space ", (input) => {
   let array = input.split(" ").map(Number);
   let result = findTheLargest(array);
   console.log(`The largest element in the array ${array} is ${result}`);
+  rl.close();
 });
