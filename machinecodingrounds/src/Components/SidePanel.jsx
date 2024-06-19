@@ -11,6 +11,8 @@ const SidePanel = ({ setActiveTab }) => {
         AutoComplete Functionality
       </button>
       <button onClick={() => setActiveTab("Clock")}>Clock</button>
+      <button onClick={() => setActiveTab("Form")}>Form</button>
+      <button onClick={() => setActiveTab("FileManager")}>File Manager</button>
     </div>
   );
 };

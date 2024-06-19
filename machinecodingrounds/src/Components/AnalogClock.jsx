@@ -2,12 +2,19 @@ import React, { useState, useEffect } from "react";
 import "../styles/Clock.scss";
 
 const Clock = () => {
-  const [date, setDate] = useState(new Date());
+  const getTimeInIST = () => {
+    const now = new Date();
+    const offset = now.getTimezoneOffset() * 60000;
+    const istTime = new Date(now.getTime() + offset);
+    return istTime;
+  };
+
+  const [date, setDate] = useState(getTimeInIST());
 
   useEffect(() => {
     const timerId = setInterval(() => {
-      setDate(new Date());
-    }, 1000 / 600);
+      setDate(getTimeInIST());
+    }, 1000 / 60);
 
     return () => {
       clearInterval(timerId);
@@ -19,7 +26,6 @@ const Clock = () => {
     (date.getMinutes() / 60) * 360 + (date.getSeconds() / 60) * 6 + 90;
   const hourDegrees =
     (date.getHours() / 12) * 360 + (date.getMinutes() / 60) * 30 + 90;
-
   return (
     <div className="clock">
       <div className="clock-face">
@@ -39,5 +45,4 @@ const Clock = () => {
     </div>
   );
 };
-
 export default Clock;
