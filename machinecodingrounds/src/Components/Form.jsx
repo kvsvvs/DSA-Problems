@@ -60,6 +60,29 @@ const Form = () => {
     }
   };
 
+  const strength = getPasswordStrength(formData.password);
+  const strengthPercentage = (strength / 5) * 100;
+  const strengthColor =
+    strength === 1
+      ? "red"
+      : strength === 2
+      ? "orange"
+      : strength === 3
+      ? "yellow"
+      : strength === 4
+      ? "lightgreen"
+      : strength === 5
+      ? "green"
+      : "transparent";
+
+  const strengthLevels = [
+    "Very Weak",
+    "Weak",
+    "Moderate",
+    "Strong",
+    "Very Strong",
+  ];
+
   return (
     <form onSubmit={handleSubmit}>
       <div>
@@ -81,8 +104,28 @@ const Form = () => {
           onChange={handleChange}
         />
         {formErrors.password && <p className="error">{formErrors.password}</p>}
-        <div className="password-strength">
-          Password Strength: {getPasswordStrength(formData.password)} / 5
+        <div className="password-strength-bar">
+          <div
+            className="password-strength-fill"
+            style={{
+              width: `${strengthPercentage}%`,
+              backgroundColor: strengthColor,
+              height: "10px",
+              borderRadius: "5px",
+            }}
+          ></div>
+        </div>
+        <div className="password-strength-level">
+          {strengthLevels[strength - 1] && (
+            <span
+              style={{
+                fontWeight: "bold",
+                color: strengthColor,
+              }}
+            >
+              {strengthLevels[strength - 1]}
+            </span>
+          )}
         </div>
       </div>
       <div>
